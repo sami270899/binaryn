@@ -21,7 +21,6 @@ int main()
                 break;
     }
 }
-	printf("print");
     return 0;
 }
 
