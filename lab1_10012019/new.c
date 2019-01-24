@@ -7,7 +7,7 @@ int main()
     int p,n;
     while(1){
     printf("\nPress 1 to convert binary to decimal\n");
-    printf("\nPress 2 to convert binary to decimal\n");
+    printf("\nPress 2 to convert decimal to binary\n");
     scanf("%d",&p);
     switch(p)
     {
@@ -40,7 +40,7 @@ int convertBinaryToDecimal(int n)
 int convertDecimalToBinary(int n)
 {
     int binaryNumber = 0;
-    int remainder, i = 1, step = 1;
+    int remainder, i = 1;
 
     while (n!=0)
     {
