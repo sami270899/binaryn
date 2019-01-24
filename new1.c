@@ -1,14 +1,19 @@
 #include <stdio.h>
 #include <math.h>
-long long convertOctalToBinary(int octalNumber);
-int convertBinarytoOctal(long long binaryNumber);
+int convertOctalToBinary(int octalNumber);
+int convertOctalToDecimal(int octalNumber);
+int convertBinarytoOctal(int binaryNumber);
+int convertDecimaltoOctal(int decimalNumber);
+int hex_binary(char hex[]);
+void binary_hex(int n, char hex[]);
 int main()
 {
     int p,n;
     char hex[20];
     long long binaryNumber;
     int octalNumber;
-    while(1){
+    while(1)
+    {
     printf("\nPress 1 to convert binary to octal\n");
     printf("\nPress 2 to convert octal to binary\n");
     printf("\nPress 3 to convert binary to hexadecimal\n");
@@ -31,7 +36,7 @@ int main()
                 printf("Enter binary number: ");
                 scanf("%d",&n);
                 binary_hex(n,hex);
-                printf("Hexadecimal number: %s",hex);
+                printf("Hexadecimal number: %s",b);
                 break;
         case 4:
                 printf("Enter hexadecimal number: ");
@@ -39,13 +44,27 @@ int main()
                 printf("Binary number: %d",hex_binary(hex));
                 break;
     }
-}
+    }
+
     return 0;
 }
-long long convertOctalToBinary(int octalNumber)
+int convertOctalToDecimal(int octalNumber)
 {
     int decimalNumber = 0, i = 0;
-    long long binaryNumber = 0;
+    int  binaryNumber = 0;
+
+    while(octalNumber != 0)
+    {
+        decimalNumber += (octalNumber%10) * pow(8,i);
+        ++i;
+        octalNumber/=10;
+    }
+   return decimalNumber;
+}
+int convertOctalToBinary(int octalNumber)
+{
+    int decimalNumber = 0, i = 0;
+    int  binaryNumber = 0;
 
     while(octalNumber != 0)
     {
@@ -65,7 +84,18 @@ long long convertOctalToBinary(int octalNumber)
 
     return binaryNumber;
 }
+int convertDecimaltoOctal(int decimalNumber)
+{
+    int octalNumber = 0, , i = 0;
+    while (decimalNumber != 0)
+    {
+        octalNumber += (decimalNumber % 8) * i;
+        decimalNumber /= 8;
+        i *= 10;
+    }
 
+    return decimalNumber;
+}
 int convertBinarytoOctal(long long binaryNumber)
 {
     int octalNumber = 0, decimalNumber = 0, i = 0;
@@ -88,19 +118,21 @@ int convertBinarytoOctal(long long binaryNumber)
 
     return octalNumber;
 }
-void binary_hex(int n, char hex[]) /* Function to convert binary to hexadecimal. */
+void binary_hex(int n, char hex[])
 {
     int i=0,decimal=0, rem;
-    while (n!=0)
+    char b[];
+    int d;
+    while (n!=0)//binary to decimal
     {
         decimal += (n%10)*pow(2,i);
         n/=10;
         ++i;
     }
 
-/* At this point, variable decimal contains binary number in decimal format. */
+
     i=0;
-    while (decimal!=0)
+    while (decimal!=0)//decimal to hexadecimal
     {
         rem=decimal%16;
         switch(rem)
@@ -131,10 +163,15 @@ void binary_hex(int n, char hex[]) /* Function to convert binary to hexadecimal.
         decimal/=16;
     }
     hex[i]='\0';
-    strrev(hex);// to reverse string
+  for (c = 0; c < n ; c++)
+      scanf("%d", &a[c]);
+
+   for (i= i- 1, d = 0; i>= 0; i--, d++)
+      b[d] = hex[i]// to reverse string
 }
 
 int hex_binary(char hex[])
+{
     int i, length, decimal=0, binary=0;
     for(length=0; hex[length]!='\0'; ++length);
     for(i=0; hex[i]!='\0'; ++i, --length)
