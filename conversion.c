@@ -3,7 +3,8 @@
 #include<stdlib.h>
 int convertBinarytoOctal(int binaryNumber);
 int convertOctalToBinary(int octalNumber);
-int convertBinarytoHexadecimal(int n,char hex[]);
+void binary_hex(int n, char hex[]);
+int hex_binary(char hex[]);
 int main()
 {
     int p,n;
@@ -32,11 +33,12 @@ int main()
         case 3:
                 printf("Enter binary number: ");
                 scanf("%d",&n);
-                convertBinarytoHexadecimal(n,hex);
+                binary_hex(n, hex);
                 break;
         case 4:
                 printf("Enter hexadecimal number: ");
                 scanf("%s",hex);
+                printf("%c in hexadecimal =%d in binary",hex,hex_binary(hex));
 
                 break;
     }
@@ -88,66 +90,75 @@ int convertBinarytoOctal(int binaryNumber)
 
     return octalNumber;
 }
-int convertBinarytoHexadecimal(int n,char hex[])
+void binary_hex(int n, char hex[])
 {
-    int decimalNumber=0;
-    int rem;
-    int i=0;
-    while(n!=0)
+
+    int i=0,decimal=0, rem;
+    char b[n];
+    int d;
+    char a[n];
+    while (n!=0)//binary to decimal
     {
-        decimalNumber=decimalNumber+(n%10)*pow(2,i);
+        decimal += (n%10)*pow(2,i);
         n/=10;
-        i++;
+        ++i;
     }
-    printf("\nDecimal no:%d",decimalNumber);
-
     i=0;
-    while(decimalNumber!=0)
+    while(decimal!=0)//decimal to hexadecimal
     {
-        rem=(decimalNumber %16);
-
+        rem=decimal%16;
         switch(rem)
         {
             case 10:
-                    hex[i]='A';
-                    break;
+                hex[i]='A';
+                break;
             case 11:
-                    hex[i]='B';
-                    break;
+                hex[i]='B';
+                break;
             case 12:
-                    hex[i]='C';
-                    break;
+                hex[i]='C';
+                break;
             case 13:
-                    hex[i]='D';
-                    break;
+                hex[i]='D';
+                break;
             case 14:
-                    hex[i]='E';
-                    break;
+                hex[i]='E';
+                break;
             case 15:
-                    hex[i]='F';
-                    break;
-
+                hex[i]='F';
+                break;
+            default:
+                hex[i]=rem+'0';
+                break;
         }
-        hex[i]=rem;
-        printf("%d",rem);
-        decimalNumber=decimalNumber/16;
-        printf("%d",decimalNumber);
-        i++;
+            ++i;
+            decimal/=16;
+    }
+        hex[i]='\0';
+        strrev(hex[i]);
 
     }
 
-    int length;
 
-    length=i;
-    while (i < length)
+int hex_binary(char hex[])
+{
+    int i, length, decimal=0, binary=0;
+    for(length=0; hex[length]!='\0'; ++length);
+    for(i=0; hex[i]!='\0'; ++i, --length)
     {
-        int temp = hex[i];
-        hex[i] = hex[length];
-        hex[length] = temp;
-        printf("%d",hex[i]);
-        i++;
-        length--;
-
+        if(hex[i]>='0' && hex[i]<='9')
+            decimal+=(hex[i]-'0')*pow(16,length-1);
+        if(hex[i]>='A' && hex[i]<='F')
+            decimal+=(hex[i]-55)*pow(16,length-1);
+        if(hex[i]>='a' && hex[i]<='f')
+            decimal+=(hex[i]-87)*pow(16,length-1);
     }
-
+    i=1;
+    while (decimal!=0)
+    {
+        binary+=(decimal%2)*i;
+        decimal/=2;
+        i*=10;
+    }
+    return binary;
 }
