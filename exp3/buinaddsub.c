@@ -1,30 +1,22 @@
-#include<iostream>
+#include<stdio.h>
 #include<math.h>
-using namespace std;
 int convertBinaryToDecimal(int);
 int convertDecimalToBinary(int );
 int main()
 {
-int n1,n2,nn1,nn2,sum,sub;
-cout<<"Enter binary number"<<endl;
-cin>>n1;
-cout<<"Enter 2nd binary number"<<endl;
-cin>>n2;
-nn1=convertBinaryToDecimal(n1);
-nn2=convertBinaryToDecimal(n2);
-sum=nn1+nn2;
-sub=nn1-nn2;
-cout<<"The binary addition is:"<<convertDecimalToBinary(sum)<<endl;
-cout<<"The binary subtraction is:"<<convertDecimalToBinary(sub)<<endl;
-
-
-
-
-
+        int n1,n2,nn1,nn2,sum,sub;
+        printf("Enter binary number\t");
+        scanf("%d",&n1);
+        printf("Enter 2nd binary number\t");
+        scanf("%d",&n2);
+        nn1=convertBinaryToDecimal(n1);
+        nn2=convertBinaryToDecimal(n2);
+        sum=nn1+nn2;
+        sub=nn1-nn2;
+        printf("\nThe binary addition is:%d",convertDecimalToBinary(sum));
+        printf("\nThe binary subtraction is:%d",convertDecimalToBinary(sub));
+        return 0;
 }
-
-
-
 int convertBinaryToDecimal(int n)
 {
     int decimalNumber = 0, i = 0, remainder;
@@ -37,9 +29,6 @@ int convertBinaryToDecimal(int n)
     }
     return decimalNumber;
 }
-
-
-
 int convertDecimalToBinary(int n)
 {
     int binaryNumber = 0;
