@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <math.h>
+#include<string.h>
 #include<stdlib.h>
 int convertBinarytoOctal(int binaryNumber);
 int convertOctalToBinary(int octalNumber);
-void binary_hex(int n, char hex[]);
+void binary_hex(int n);
 int hex_binary(char hex[]);
 int main()
 {
@@ -33,7 +34,7 @@ int main()
         case 3:
                 printf("Enter binary number: ");
                 scanf("%d",&n);
-                binary_hex(n, hex);
+                binary_hex(n);
                 break;
         case 4:
                 printf("Enter hexadecimal number: ");
@@ -90,52 +91,70 @@ int convertBinarytoOctal(int binaryNumber)
 
     return octalNumber;
 }
-void binary_hex(int n, char hex[])
-{
+void strrev(char * str);
 
-    int i=0,decimal=0, rem;
-    char b[n];
-    int d;
-    char a[n];
-    while (n!=0)//binary to decimal
+//Definition
+void strrev(char * str) {
+	int j = 0, i = 0;
+	while(str[j+1]) j++;
+	while(i < j) {
+		char temp = str[i];
+		str[i] = str[j];
+		str[j] = temp;
+		i++;
+		j--;
+	}
+}
+void binary_hex(int n)
+{
+  int i=0,decimal=0, rem;
+  char hex[20];
+    while (n!=0)
     {
         decimal += (n%10)*pow(2,i);
         n/=10;
         ++i;
     }
+    printf("\nIts decimal value is:%d",decimal);
+
+/* At this point, variable decimal contains binary number in decimal format. */
     i=0;
-    while(decimal!=0)//decimal to hexadecimal
+    while (decimal!=0)
     {
         rem=decimal%16;
         switch(rem)
         {
             case 10:
-                hex[i]='A';
-                break;
+              hex[i]='A';
+              break;
             case 11:
-                hex[i]='B';
-                break;
+              hex[i]='B';
+              break;
             case 12:
-                hex[i]='C';
-                break;
+              hex[i]='C';
+              break;
             case 13:
-                hex[i]='D';
-                break;
+              hex[i]='D';
+              break;
             case 14:
-                hex[i]='E';
-                break;
+              hex[i]='E';
+              break;
             case 15:
-                hex[i]='F';
-                break;
+              hex[i]='F';
+              break;
             default:
-                hex[i]=rem+'0';
-                break;
+              hex[i]=rem+'0';
+              break;
         }
-            ++i;
-            decimal/=16;
+        ++i;
+        decimal/=16;
+
     }
-        hex[i]='\0';
-        strrev(hex[i]);
+
+    strrev(hex);
+    {
+        printf("%c",hex[i]);
+    }
 
     }
 
